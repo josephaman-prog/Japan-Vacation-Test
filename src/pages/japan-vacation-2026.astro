@@ -1,0 +1,625 @@
+---
+const days = [
+  {
+    date: "Wed May 20",
+    title: "Arrival Osaka",
+    image: "https://app.paper.design/file-assets/01KQN966528A8S31YWETVV1W7Y/0WDCK5A217E98W8MXE7PRCZPJS.jpg",
+    cards: [
+      {
+        status: "Booked",
+        tone: "booked",
+        title: "09:20 AirAsia X D7 378",
+        body: "Depart, TPE layover, arrive KIX 19:30.",
+      },
+      {
+        status: "Booked",
+        tone: "booked",
+        title: "The OneFive Osaka Namba Kuromon",
+        body: "Check in, decompress, optional Mizuno.",
+      },
+    ],
+  },
+  {
+    date: "Thu May 21",
+    title: "Minoo + Namba",
+    image: "https://app.paper.design/file-assets/01KQN966528A8S31YWETVV1W7Y/7Z9R6J9AXTB580EDHN9GSW408R.jpg",
+    cards: [
+      {
+        title: "10:00 Minoo waterfall walk",
+        body: "Easy paved 3 km scenic route.",
+      },
+      {
+        title: "17:30 Dotonbori canal",
+        body: "Romantic city lights, loose evening.",
+      },
+      {
+        tone: "planning",
+        title: "Planning: Yakiniku M",
+        body: "Optional Osaka reservation meal.",
+      },
+    ],
+  },
+  {
+    date: "Fri May 22",
+    title: "Kyoto Transfer",
+    image: "https://app.paper.design/file-assets/01KQN966528A8S31YWETVV1W7Y/4C8P59P84S1V7X9BFJ0E4E3XNQ.jpg",
+    cards: [
+      {
+        title: "09:00 Osaka to Kyoto",
+        body: "Forward or store luggage.",
+      },
+      {
+        status: "Booked",
+        tone: "booked",
+        title: "Hotel Legasta Kyoto",
+        body: "Higashiyama Sanjo base.",
+      },
+      {
+        title: "12:30 Fushimi Inari hike",
+        body: "Yotsutsuji viewpoint or full loop.",
+      },
+      {
+        tone: "planning",
+        title: "Planning: yuka dinner",
+        body: "Pontocho / Kamo River priority.",
+      },
+    ],
+  },
+  {
+    date: "Sat May 23",
+    title: "Kurama / Kibune",
+    image: "https://app.paper.design/file-assets/01KQN966528A8S31YWETVV1W7Y/6GPDHBV95QGVRYGAWT2QE8ZFM9.jpg",
+    cards: [
+      {
+        title: "10:00 forest hike",
+        body: "Kurama-dera to Kibune village.",
+      },
+      {
+        title: "13:00 Kifune Shrine",
+        body: "Water shrine and village wander.",
+      },
+      {
+        tone: "planning",
+        title: "Planning: kawadoko meal",
+        body: "Reserve lunch or early dinner.",
+      },
+    ],
+  },
+  {
+    date: "Sun May 24",
+    title: "Arashiyama Gorge",
+    image: "https://app.paper.design/file-assets/01KQN966528A8S31YWETVV1W7Y/2WFMF7ZC1H6B9H9XBPTWM4JTQB.jpg",
+    cards: [
+      {
+        tone: "planning",
+        title: "Planning: Sagano train",
+        body: "Book seats toward Kameoka.",
+      },
+      {
+        tone: "planning",
+        title: "Planning: Hozugawa boat",
+        body: "Two-hour river ride, weather-dependent.",
+      },
+      {
+        title: "15:00 quiet Arashiyama",
+        body: "River paths, gardens, quieter edges.",
+      },
+    ],
+  },
+  {
+    date: "Mon May 25",
+    title: "Nara + Rinku",
+    image: "https://app.paper.design/file-assets/01KQN966528A8S31YWETVV1W7Y/3W6DBCB85QFACG96XY9MMBZ8K1.jpg",
+    cards: [
+      {
+        tone: "planning",
+        title: "Planning: luggage",
+        body: "Forward or store before Nara.",
+      },
+      {
+        title: "10:00 Nara Park walk",
+        body: "Kasuga area and Mt. Wakakusa.",
+      },
+      {
+        status: "Booked",
+        tone: "booked",
+        title: "Odysis Suites Osaka Airport",
+        body: "Final airport-area night.",
+      },
+    ],
+  },
+  {
+    date: "Tue May 26",
+    title: "KIX Departure",
+    image: "https://app.paper.design/file-assets/01KQN966528A8S31YWETVV1W7Y/5KE8JR8BWY0504QAPXBH3HC6FR.jpg",
+    cards: [
+      {
+        title: "06:45 hotel checkout",
+        body: "Taxi or local transit depending timing.",
+      },
+      {
+        title: "08:00 airport buffer",
+        body: "Arrive KIX around 3 hours early.",
+      },
+      {
+        status: "Booked",
+        tone: "booked",
+        title: "11:00 depart KIX",
+        body: "Confirmed flight time.",
+      },
+    ],
+  },
+];
+
+const mapImage = "https://app.paper.design/file-assets/01KQN966528A8S31YWETVV1W7Y/3CEN14Q261VVBZ87EA2D80KHKZ.png";
+const heroImage = "https://app.paper.design/file-assets/01KQN966528A8S31YWETVV1W7Y/37S0WV5ARC1NK1YG5HX9HP998Y.jpg";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Japan Vacation 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Noto+Serif+JP:wght@700;800&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <main class="board-shell">
+      <section class="hero">
+        <div>
+          <h1>Osaka and Kyoto 2026</h1>
+        </div>
+        <p class="date">May 20-26</p>
+        <div class="temple-mark" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <img src={heroImage} alt="Orange torii gates in Kyoto" />
+      </section>
+
+      <section class="content">
+        <header class="section-heading">
+          <div>
+            <p>Seven day flow</p>
+            <h2>Daily tracks, bookings, and open decisions</h2>
+          </div>
+          <span>Booked labels are reserved for confirmed hotels and flight anchors. Reservation targets stay in the flow as planning cards.</span>
+        </header>
+
+        <section class="tracks" aria-label="Seven day itinerary">
+          {days.map((day) => (
+            <article class="track">
+              <img src={day.image} alt="" />
+              <p class="track-date">{day.date}</p>
+              <h3>{day.title}</h3>
+              <div class="cards">
+                {day.cards.map((card) => (
+                  <section class:list={["card", card.tone]}>
+                    {card.status && <p>{card.status}</p>}
+                    <h4>{card.title}</h4>
+                    <span>{card.body}</span>
+                  </section>
+                ))}
+              </div>
+            </article>
+          ))}
+        </section>
+
+        <section class="map-section">
+          <header class="section-heading">
+            <div>
+              <p>Kansai route map</p>
+              <h2>Where each day lands</h2>
+            </div>
+            <span>A designed overview map for trip flow. Pins show daily anchors rather than exact street-level geography.</span>
+          </header>
+
+          <div class="map-card">
+            <img src={mapImage} alt="Map of the Kansai route through Osaka, Kyoto, Nara, Rinku, and KIX" />
+            <aside>
+              <p>Day anchors</p>
+              <h3>Osaka to Kyoto, then back toward KIX</h3>
+              <ul>
+                <li>May 20-21 Osaka base, Namba, Minoo</li>
+                <li>May 22-24 Kyoto base, Fushimi, Kibune, Arashiyama</li>
+                <li>May 25 Nara day trip, then Rinku Town</li>
+                <li>May 26 KIX departure buffer</li>
+              </ul>
+            </aside>
+          </div>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>
+
+<style>
+  :global(*) {
+    box-sizing: border-box;
+  }
+
+  :global(body) {
+    margin: 0;
+    background: #eaf1e3;
+    color: #17231c;
+    font-family: "Inter", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .board-shell {
+    width: min(100%, 1440px);
+    margin: 0 auto;
+    background: #eaf1e3;
+    overflow: hidden;
+  }
+
+  .hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 260px;
+    padding: 42px 72px;
+    overflow: hidden;
+    border-bottom: 20px solid #8a3f2a;
+    background: linear-gradient(90deg, #1f5d3b 0%, #267349 48%, #183e2b 100%);
+    box-shadow: inset 0 -1px 0 #d6b15c;
+  }
+
+  .hero h1,
+  .section-heading h2,
+  .track h3,
+  .map-card h3 {
+    margin: 0;
+    font-family: "Noto Serif JP", Georgia, serif;
+    letter-spacing: 0;
+  }
+
+  .hero h1 {
+    max-width: 760px;
+    color: #f7f3e8;
+    font-size: clamp(44px, 5vw, 68px);
+    font-weight: 800;
+    line-height: 1.12;
+  }
+
+  .hero .date {
+    position: absolute;
+    top: 52px;
+    right: 398px;
+    margin: 0;
+    color: #f7f3e8;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    line-height: 20px;
+    text-transform: uppercase;
+  }
+
+  .hero img {
+    position: absolute;
+    top: 24px;
+    right: 72px;
+    width: 300px;
+    height: 190px;
+    object-fit: cover;
+    border: 2px solid rgb(247 243 232 / 72%);
+    border-radius: 8px;
+    box-shadow: 0 18px 44px rgb(23 35 28 / 28%);
+  }
+
+  .temple-mark {
+    position: absolute;
+    right: 418px;
+    bottom: 34px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    width: 330px;
+    height: 72px;
+    opacity: 0.18;
+  }
+
+  .temple-mark span:first-child {
+    width: 330px;
+    height: 0;
+    border-right: 42px solid transparent;
+    border-bottom: 36px solid #17231c;
+    border-left: 42px solid transparent;
+  }
+
+  .temple-mark span:nth-child(2) {
+    width: 218px;
+    height: 20px;
+    background: #17231c;
+  }
+
+  .temple-mark span:last-child {
+    width: 162px;
+    height: 12px;
+    background: #d6b15c;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 34px 42px 42px;
+  }
+
+  .section-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 32px;
+  }
+
+  .section-heading p,
+  .track-date,
+  .card p,
+  .map-card p {
+    margin: 0;
+    color: #8a3f2a;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    line-height: 18px;
+    text-transform: uppercase;
+  }
+
+  .section-heading h2 {
+    margin-top: 6px;
+    font-size: clamp(28px, 3vw, 34px);
+    font-weight: 700;
+    line-height: 1.24;
+  }
+
+  .section-heading > span {
+    max-width: 360px;
+    color: #446052;
+    font-size: 14px;
+    line-height: 1.45;
+    text-align: right;
+  }
+
+  .tracks {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 14px;
+    align-items: start;
+  }
+
+  .track {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .track > img {
+    width: 100%;
+    height: 112px;
+    object-fit: cover;
+    border-radius: 6px;
+  }
+
+  .track-date {
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    line-height: 16px;
+  }
+
+  .track h3 {
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1.18;
+  }
+
+  .cards {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-height: 73px;
+    padding: 10px;
+    border-radius: 6px;
+    background: #fff;
+  }
+
+  .card.booked {
+    border-left: 4px solid #d6b15c;
+    background: #f7f3e8;
+  }
+
+  .card.planning {
+    border-left: 4px solid #8a3f2a;
+    background: #f7f3e8;
+  }
+
+  .card p {
+    color: #1f5d3b;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 0;
+    line-height: 14px;
+  }
+
+  .card h4 {
+    margin: 0;
+    color: #17231c;
+    font-size: 15px;
+    font-weight: 800;
+    line-height: 1.27;
+  }
+
+  .card span {
+    color: #446052;
+    font-size: 12px;
+    line-height: 1.42;
+  }
+
+  .map-section {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding-top: 64px;
+  }
+
+  .map-section .section-heading h2 {
+    font-size: clamp(28px, 3vw, 30px);
+    font-weight: 800;
+  }
+
+  .map-card {
+    position: relative;
+    min-height: 445px;
+    overflow: hidden;
+    border: 1px solid rgb(31 93 59 / 18%);
+    border-radius: 8px;
+    background: #ddebd9;
+  }
+
+  .map-card > img {
+    display: block;
+    width: 100%;
+    height: 445px;
+    object-fit: cover;
+  }
+
+  .map-card aside {
+    position: absolute;
+    top: 36px;
+    right: 34px;
+    width: 330px;
+    padding: 20px;
+    border: 1px solid rgb(31 93 59 / 18%);
+    border-radius: 8px;
+    background: rgb(247 243 232 / 84%);
+  }
+
+  .map-card h3 {
+    margin-top: 12px;
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 1.25;
+  }
+
+  .map-card ul {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 16px 0 0;
+    padding: 16px 0 0;
+    border-top: 1px solid rgb(31 93 59 / 18%);
+    list-style: none;
+  }
+
+  .map-card li {
+    font-size: 13px;
+    line-height: 1.38;
+  }
+
+  @media (max-width: 1180px) {
+    .hero {
+      min-height: 320px;
+      align-items: flex-start;
+      padding: 36px;
+    }
+
+    .hero .date {
+      top: auto;
+      right: auto;
+      bottom: 36px;
+      left: 36px;
+    }
+
+    .hero img {
+      top: 36px;
+      right: 36px;
+      width: min(32vw, 300px);
+    }
+
+    .temple-mark {
+      right: 280px;
+    }
+
+    .tracks {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 760px) {
+    .hero {
+      min-height: 520px;
+      padding: 28px 22px;
+    }
+
+    .hero h1 {
+      max-width: 100%;
+      padding-top: 220px;
+    }
+
+    .hero img {
+      top: 28px;
+      right: 22px;
+      left: 22px;
+      width: auto;
+      height: 190px;
+    }
+
+    .hero .date {
+      bottom: 28px;
+      left: 22px;
+    }
+
+    .temple-mark {
+      display: none;
+    }
+
+    .content {
+      padding: 28px 18px;
+    }
+
+    .section-heading {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .section-heading > span {
+      max-width: none;
+      text-align: left;
+    }
+
+    .tracks {
+      grid-template-columns: 1fr;
+    }
+
+    .map-section {
+      padding-top: 28px;
+    }
+
+    .map-card > img {
+      height: 360px;
+    }
+
+    .map-card aside {
+      position: static;
+      width: auto;
+      border-right: 0;
+      border-bottom: 0;
+      border-left: 0;
+      border-radius: 0;
+      background: #f7f3e8;
+    }
+  }
+</style>
