@@ -9,64 +9,594 @@
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
+		<meta name="theme-color" content="#2a0f16" />
 		<title>I Love Melisa Lim</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap"
+			rel="stylesheet"
+		/>
 		<style>
-			html, body {
+			:root {
+				--velvet-deep: oklch(0.17 0.045 355);
+				--velvet: oklch(0.21 0.05 15);
+				--gold: oklch(0.87 0.065 85);
+				--gold-soft: oklch(0.78 0.09 75);
+				--rose: oklch(0.68 0.13 15);
+				--paper: oklch(0.96 0.012 85);
+				--shadow-ink: oklch(0.12 0.03 355);
+				--ease-settle: cubic-bezier(0.22, 1, 0.36, 1);
+			}
+
+			html {
+				background-color: #251016;
+				background-color: var(--velvet-deep);
+			}
+
+			html,
+			body {
 				margin: 0;
+				min-height: 100%;
+			}
+
+			body {
+				background-color: #2a1118;
+				background:
+					radial-gradient(
+						1200px 800px at 50% -12%,
+						oklch(0.34 0.075 40 / 0.55),
+						transparent 62%
+					),
+					radial-gradient(
+						1000px 700px at 88% 108%,
+						oklch(0.3 0.07 355 / 0.5),
+						transparent 60%
+					),
+					radial-gradient(
+						900px 700px at 6% 92%,
+						oklch(0.28 0.06 20 / 0.45),
+						transparent 58%
+					),
+					linear-gradient(180deg, var(--velvet), var(--velvet-deep));
+				overflow-x: hidden;
+			}
+
+			/* soft candlelight vignette */
+			body::after {
+				content: "";
+				position: fixed;
+				inset: 0;
+				pointer-events: none;
+				z-index: 0;
+				background: radial-gradient(
+					ellipse at 50% 44%,
+					transparent 52%,
+					oklch(0.1 0.03 355 / 0.4) 100%
+				);
+			}
+
+			/* ── drifting embers ─────────────────────────────── */
+
+			.embers {
+				position: fixed;
+				inset: 0;
+				overflow: hidden;
+				pointer-events: none;
+				z-index: 0;
+			}
+
+			.em {
+				position: absolute;
+				top: 103%;
+				left: var(--x);
+				width: var(--s);
+				height: var(--s);
+				color: var(--c);
+				background: radial-gradient(circle at 50% 50%, var(--c) 0%, transparent 70%);
+				opacity: 0;
+				animation: rise var(--d) linear infinite;
+				animation-delay: var(--dl);
+			}
+
+			.em.heart {
+				background: none;
+			}
+
+			.em.heart b {
+				display: block;
+				width: 100%;
 				height: 100%;
-				background: #ffffff;
+				background: currentColor;
+				transform: rotate(45deg) scale(0.72);
+				filter: blur(0.5px);
 			}
-			main {
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				height: 100vh;
-			}
-			.heart {
-				position: relative;
-				width: min(70vw, 420px);
-				aspect-ratio: 1 / 0.9;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-			}
-			.heart::before,
-			.heart::after {
+
+			.em.heart b::before,
+			.em.heart b::after {
 				content: "";
 				position: absolute;
-				top: 0;
-				width: 52%;
-				height: 80%;
-				background: #ff5c8a;
-				border-radius: 50% 50% 0 0;
+				width: 100%;
+				height: 100%;
+				border-radius: 50%;
+				background: currentColor;
 			}
-			.heart::before {
-				left: 50%;
-				transform: rotate(-45deg);
-				transform-origin: 0 100%;
+
+			.em.heart b::before {
+				left: -50%;
 			}
-			.heart::after {
-				left: 0;
-				transform: rotate(45deg);
-				transform-origin: 100% 100%;
+
+			.em.heart b::after {
+				top: -50%;
 			}
-			.heart span {
+
+			@keyframes rise {
+				0% {
+					transform: translate3d(0, 0, 0);
+					opacity: 0;
+				}
+				10% {
+					opacity: var(--o);
+				}
+				33% {
+					transform: translate3d(var(--sw), -38vh, 0);
+				}
+				66% {
+					transform: translate3d(calc(var(--sw) * -0.7), -76vh, 0);
+				}
+				88% {
+					opacity: var(--o);
+				}
+				100% {
+					transform: translate3d(calc(var(--sw) * 0.4), -116vh, 0);
+					opacity: 0;
+				}
+			}
+
+			/* ── the wall (base: narrow rooms, scrolling column) ── */
+
+			main {
 				position: relative;
 				z-index: 1;
-				transform: translateY(-12%);
-				font-family: system-ui, sans-serif;
-				font-weight: 700;
-				font-size: clamp(1rem, 4vw, 1.6rem);
-				color: #ffffff;
+				margin: 0 auto;
+				padding: clamp(2.5rem, 6vh, 4rem) clamp(1.25rem, 4vw, 2.5rem)
+					clamp(3.5rem, 8vh, 6rem);
+			}
+
+			.wall {
+				display: grid;
+				grid-template-columns: repeat(2, minmax(0, 1fr));
+				grid-template-areas:
+					"tt tt"
+					"p5 p5"
+					"p6 p3"
+					"p2 p2"
+					"p1 p4"
+					"p8 p7";
+				gap: clamp(1.4rem, 3.5vw, 2.2rem);
+				align-items: center;
+				max-width: 640px;
+				margin: 0 auto;
+			}
+
+			/* ── the dedication ──────────────────────────────── */
+
+			.dedication {
+				grid-area: tt;
 				text-align: center;
-				padding: 0 1.5rem;
+				padding: clamp(1rem, 4vw, 2rem) 0 clamp(1.5rem, 5vw, 2.5rem);
+			}
+
+			h1 {
+				margin: 0;
+				font-family: "Parisienne", "Snell Roundhand", "Apple Chancery", cursive;
+				font-weight: 400;
+				color: var(--gold);
+				line-height: 1.3;
+				text-wrap: balance;
+			}
+
+			h1 .l1,
+			h1 .l2 {
+				display: block;
+				filter: blur(0);
+				clip-path: inset(-15% -12% -28% -12%);
+				text-shadow:
+					0 0 34px oklch(0.78 0.09 75 / 0.35),
+					0 2px 4px oklch(0.12 0.03 355 / 0.45);
+			}
+
+			h1 .l1 {
+				font-size: clamp(2.2rem, min(6vh, 9vw), 3.4rem);
+				opacity: 0.92;
+				animation: script-in 1.3s var(--ease-settle) 0.95s backwards;
+			}
+
+			h1 .l2 {
+				font-size: clamp(2.4rem, min(9.5vh, 12vw), 5.6rem);
+				white-space: nowrap;
+				animation: script-in 1.5s var(--ease-settle) 1.4s backwards;
+			}
+
+			@keyframes script-in {
+				from {
+					opacity: 0;
+					clip-path: inset(-15% 100% -28% -12%);
+					filter: blur(3px);
+				}
+			}
+
+			.flourish {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				gap: 0.9rem;
+				margin-top: clamp(1.1rem, 2.6vh, 1.9rem);
+				animation: bloom 1.4s var(--ease-settle) 2.1s backwards;
+			}
+
+			.flourish .line {
+				width: clamp(2.6rem, 5vw, 4.5rem);
+				height: 1px;
+				background: linear-gradient(
+					90deg,
+					transparent,
+					oklch(0.78 0.09 75 / 0.55),
+					transparent
+				);
+			}
+
+			.hrt {
+				position: relative;
+				width: 13px;
+				height: 13px;
+				background: var(--rose);
+				transform: rotate(45deg);
+				animation: heartbeat 2.8s ease-in-out 3.4s infinite;
+				filter: drop-shadow(0 0 10px oklch(0.68 0.13 15 / 0.5));
+			}
+
+			.hrt::before,
+			.hrt::after {
+				content: "";
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				border-radius: 50%;
+				background: var(--rose);
+			}
+
+			.hrt::before {
+				left: -50%;
+			}
+
+			.hrt::after {
+				top: -50%;
+			}
+
+			@keyframes bloom {
+				from {
+					opacity: 0;
+					transform: scale(0.85);
+				}
+			}
+
+			@keyframes heartbeat {
+				0%,
+				28%,
+				100% {
+					transform: rotate(45deg) scale(1);
+				}
+				10% {
+					transform: rotate(45deg) scale(1.14);
+				}
+				19% {
+					transform: rotate(45deg) scale(1.04);
+				}
+			}
+
+			/* ── the prints ──────────────────────────────────── */
+
+			.print {
+				--nudge: 0px;
+				grid-area: var(--area);
+				margin: 0;
+				width: 100%;
+				background: var(--paper);
+				padding: clamp(8px, 0.9vw, 12px);
+				padding-bottom: clamp(30px, 3vw, 42px);
+				border-radius: 3px;
+				box-shadow:
+					0 14px 34px oklch(0.12 0.03 355 / 0.55),
+					0 3px 10px oklch(0.12 0.03 355 / 0.45);
+				transform: translateY(var(--nudge)) rotate(var(--tilt));
+				transition:
+					transform 0.5s var(--ease-settle),
+					box-shadow 0.5s var(--ease-settle);
+				animation: settle 1s var(--ease-settle) var(--enter) backwards;
+			}
+
+			@keyframes settle {
+				from {
+					opacity: 0;
+					transform: translateY(calc(var(--nudge) + 34px)) rotate(0deg);
+				}
+			}
+
+			@media (hover: hover) {
+				.print:hover {
+					transform: translateY(calc(var(--nudge) - 12px)) rotate(0deg)
+						scale(1.02);
+					box-shadow:
+						0 26px 54px oklch(0.12 0.03 355 / 0.65),
+						0 6px 16px oklch(0.12 0.03 355 / 0.5),
+						0 0 44px oklch(0.78 0.09 75 / 0.16);
+					z-index: 3;
+				}
+			}
+
+			.print img {
+				display: block;
+				width: 100%;
+				height: auto;
+				object-fit: cover;
+				border-radius: 1px;
+			}
+
+			.print.op img {
+				aspect-ratio: 3 / 4;
+			}
+
+			.print.ol img {
+				aspect-ratio: 4 / 3;
+			}
+
+			.ph1 {
+				--area: p1;
+				--tilt: -3.4deg;
+				--nudge: 6px;
+				--enter: 0.1s;
+			}
+
+			.ph2 {
+				--area: p2;
+				--tilt: 2.2deg;
+				--nudge: -10px;
+				--enter: 0.18s;
+			}
+
+			.ph3 {
+				--area: p3;
+				--tilt: -2deg;
+				--nudge: 12px;
+				--enter: 0.26s;
+			}
+
+			.ph4 {
+				--area: p4;
+				--tilt: 3.2deg;
+				--nudge: -6px;
+				--enter: 0.34s;
+			}
+
+			.ph5 {
+				--area: p5;
+				--tilt: -2.6deg;
+				--enter: 0.58s;
+			}
+
+			.ph6 {
+				--area: p6;
+				--tilt: 2.4deg;
+				--enter: 0.42s;
+			}
+
+			.ph7 {
+				--area: p7;
+				--tilt: 2.8deg;
+				--nudge: -4px;
+				--enter: 0.66s;
+			}
+
+			.ph8 {
+				--area: p8;
+				--tilt: -2.4deg;
+				--nudge: 4px;
+				--enter: 0.5s;
+			}
+
+			.ph6 img {
+				object-position: 50% 28%;
+			}
+
+			.ph7 img {
+				object-position: 50% 32%;
+			}
+
+			/* ── smallest rooms: single column ───────────────── */
+
+			@media (max-width: 559px) {
+				.wall {
+					grid-template-columns: minmax(0, 1fr);
+					grid-template-areas:
+						"tt"
+						"p5"
+						"p6"
+						"p2"
+						"p3"
+						"p1"
+						"p8"
+						"p7"
+						"p4";
+					max-width: 420px;
+				}
+
+				.em:nth-child(n + 9) {
+					display: none;
+				}
+			}
+
+			/* ── grand rooms: one-viewport jewel box ─────────── */
+
+			@media (min-width: 1000px) {
+				main {
+					box-sizing: border-box;
+					height: 100vh;
+					min-height: 680px;
+					display: flex;
+					padding: clamp(1.25rem, 3vh, 2.5rem) clamp(1.5rem, 3vw, 3rem);
+				}
+
+				.wall {
+					display: block;
+					position: relative;
+					width: 100%;
+					max-width: 1500px;
+					height: 100%;
+					margin: auto;
+				}
+
+				.dedication {
+					position: absolute;
+					left: 50%;
+					top: 46%;
+					transform: translate(-50%, -50%);
+					padding: 0;
+					z-index: 2;
+					width: max-content;
+					max-width: 44vw;
+				}
+
+				.print {
+					position: absolute;
+					width: var(--w);
+					z-index: 1;
+				}
+
+				.print.op {
+					--w: clamp(150px, 23vh, 255px);
+				}
+
+				.print.ol {
+					--w: clamp(200px, 31vh, 345px);
+				}
+
+				.ph1 {
+					left: 3%;
+					top: 4%;
+				}
+
+				.ph2 {
+					left: 23%;
+					top: 3.5%;
+				}
+
+				.ph3 {
+					left: 56%;
+					top: 3%;
+				}
+
+				.ph4 {
+					right: 2.5%;
+					top: 6%;
+				}
+
+				.ph7 {
+					left: 2.5%;
+					top: 42%;
+				}
+
+				.ph6 {
+					--w: clamp(170px, 26vh, 290px);
+					right: 2%;
+					top: 40%;
+				}
+
+				.ph5 {
+					--w: clamp(220px, 35vh, 385px);
+					left: 13%;
+					top: 66%;
+				}
+
+				.ph8 {
+					right: 15%;
+					top: 69%;
+				}
+			}
+
+			/* ── stillness ───────────────────────────────────── */
+
+			@media (prefers-reduced-motion: reduce) {
+				.em {
+					display: none;
+				}
+
+				.print,
+				h1 .l1,
+				h1 .l2,
+				.flourish,
+				.hrt {
+					animation: none;
+				}
+
+				.print {
+					transition: none;
+				}
 			}
 		</style>
 	</head>
 	<body>
+		<div class="embers" aria-hidden="true">
+			<i class="em" style="--x: 8%; --s: 10px; --d: 34s; --dl: -4s; --o: 0.13; --sw: 26px; --c: oklch(0.82 0.08 80 / 0.8)"></i>
+			<i class="em heart" style="--x: 16%; --s: 15px; --d: 42s; --dl: -21s; --o: 0.12; --sw: -30px; --c: oklch(0.68 0.13 15 / 0.75)"><b></b></i>
+			<i class="em" style="--x: 26%; --s: 7px; --d: 28s; --dl: -12s; --o: 0.15; --sw: 20px; --c: oklch(0.85 0.07 85 / 0.85)"></i>
+			<i class="em" style="--x: 34%; --s: 12px; --d: 38s; --dl: -30s; --o: 0.11; --sw: -24px; --c: oklch(0.72 0.1 40 / 0.8)"></i>
+			<i class="em heart" style="--x: 44%; --s: 12px; --d: 36s; --dl: -9s; --o: 0.11; --sw: 22px; --c: oklch(0.72 0.12 10 / 0.7)"><b></b></i>
+			<i class="em" style="--x: 52%; --s: 8px; --d: 30s; --dl: -25s; --o: 0.14; --sw: -18px; --c: oklch(0.85 0.07 85 / 0.85)"></i>
+			<i class="em" style="--x: 61%; --s: 14px; --d: 44s; --dl: -16s; --o: 0.1; --sw: 30px; --c: oklch(0.78 0.09 75 / 0.8)"></i>
+			<i class="em heart" style="--x: 70%; --s: 16px; --d: 40s; --dl: -33s; --o: 0.12; --sw: -26px; --c: oklch(0.68 0.13 15 / 0.75)"><b></b></i>
+			<i class="em" style="--x: 78%; --s: 9px; --d: 32s; --dl: -6s; --o: 0.14; --sw: 24px; --c: oklch(0.82 0.08 80 / 0.85)"></i>
+			<i class="em" style="--x: 85%; --s: 11px; --d: 37s; --dl: -27s; --o: 0.12; --sw: -20px; --c: oklch(0.72 0.1 40 / 0.8)"></i>
+			<i class="em heart" style="--x: 92%; --s: 13px; --d: 39s; --dl: -14s; --o: 0.11; --sw: 26px; --c: oklch(0.72 0.12 10 / 0.7)"><b></b></i>
+			<i class="em" style="--x: 97%; --s: 8px; --d: 29s; --dl: -19s; --o: 0.13; --sw: -16px; --c: oklch(0.85 0.07 85 / 0.85)"></i>
+		</div>
 		<main>
-			<div class="heart">
-				<span>I Love Melisa Lim</span>
+			<div class="wall">
+				<header class="dedication">
+					<h1>
+						<span class="l1">I Love</span>
+						<span class="l2">Melisa Lim</span>
+					</h1>
+					<div class="flourish" aria-hidden="true">
+						<span class="line"></span>
+						<span class="hrt"></span>
+						<span class="line"></span>
+					</div>
+				</header>
+				<figure class="print ph1 op">
+					<img src="/assets/melisa/dinner-date.jpg" alt="" width="360" height="480" decoding="async" />
+				</figure>
+				<figure class="print ph2 ol">
+					<img src="/assets/melisa/bamboo-forest.jpg" alt="" width="1024" height="768" decoding="async" />
+				</figure>
+				<figure class="print ph3 op">
+					<img src="/assets/melisa/nara-deer.jpg" alt="" width="1050" height="1400" decoding="async" />
+				</figure>
+				<figure class="print ph4 op">
+					<img src="/assets/melisa/sunrise-hike.jpg" alt="" width="360" height="480" decoding="async" />
+				</figure>
+				<figure class="print ph5 ol">
+					<img src="/assets/melisa/waterfall-kiss.jpg" alt="" width="1024" height="768" decoding="async" />
+				</figure>
+				<figure class="print ph6 op">
+					<img src="/assets/melisa/rooftop-sunset.jpg" alt="" width="1050" height="1400" decoding="async" />
+				</figure>
+				<figure class="print ph7 op">
+					<img src="/assets/melisa/poolside.jpg" alt="" width="360" height="514" decoding="async" />
+				</figure>
+				<figure class="print ph8 ol">
+					<img src="/assets/melisa/wagyu-night.jpg" alt="" width="480" height="360" decoding="async" />
+				</figure>
 			</div>
 		</main>
 	</body>
