@@ -53,7 +53,7 @@ page.
 
 - `/` — landing page listing all published pages
 - `/japan-vacation-2026/` — Japan Vacation 2026 board
-- `/i-love-melisa-lim/` — I Love Melisa Lim heart
+- `/i-love-melisa-lim/` — I Love Melisa Lim photo collage
 
 ## Customizing Pages
 
